@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Proyecto Javascript</title>
+</head>
+<body>
+  <script>
+     console.log();
+ console.log(`Autos`)
+ console.log();
+  function Automovil(marca,linea,modelo,cilindraje,precio){
+    this.marca = marca;
+    this.linea = linea;
+    this.modelo = modelo;
+    this.cilindraje = cilindraje;
+    this.precio = precio;
+  }
+
+  const autoPrototype = {
+    informacionVehiculo() {
+      console.log("Información del vehículo:");
+      console.log("Marca: " + this.marca);
+      console.log("Línea: " + this.linea);
+      console.log("Modelo: " + this.modelo);
+      console.log("Cilindraje: " + this.cilindraje);
+      console.log("Precio: $" + this.precio);
+    },
+
+    revisionTecnicoMecanica(){
+      let antiguedad = new Date().getFullYear() - this.modelo;
+      if (antiguedad > 5) {
+        console.log("El vehículo debe presentar revisión técnico mecánica.");
+      } else {
+        console.log("El vehículo no requiere revisión técnico mecánica.");
+      }
+    },
+
+    nivelGasolina() {
+      let nivel = Math.floor(Math.random() * 100) + 1;
+      console.log("El nivel de gasolina es: " + nivel + "%");
+    }
+  }
+  let auto1 = new Automovil("Toyota", "Corolla", 2017, 2000, 7000000);
+    console.log({auto1});
+
+  let auto2 = new Automovil('Honda','Civic',2019,1800,30000000);
+    console.log({auto2});
+  
+  let auto3 = new Automovil('Ford','Mustang',2010,3500,1500000);
+    console.log({auto3});
+
+  Object.assign(Automovil.prototype, autoPrototype);
+
+  console.log();
+ console.log(`Sedan`)
+ console.log();
+
+    function Sedan(marca,linea,modelo,cilindraje,precio,numeroPasajeros,tipoCaja){
+      this.super = Automovil;
+      this.super(marca,linea,modelo,cilindraje,precio);
+      this.numeroPasajeros = numeroPasajeros;
+      this.tipoCaja = tipoCaja;
+    }
+    
+    Sedan.prototype = new Automovil();
+    Sedan.prototype.constructor = Automovil;
+
+
+    let sedan1 = new Sedan("Toyota", "Corolla", 2017, 2000, 7000000,4,`Automatica`);  
+    let sedan2 = new Sedan('Honda','Civic',2019,1800,30000000,2,'Manual');
+    let sedan3 = new Sedan('Ford','Mustang',2010,3500,1500000,5,'Automatica');
+  
+    console.log({sedan1});
+    console.log({sedan2});
+    console.log({sedan3});
+
+    auto1.informacionVehiculo();
+    auto1.revisionTecnicoMecanica();
+    auto1.nivelGasolina();
+
+    auto2.informacionVehiculo();
+    auto2.revisionTecnicoMecanica();
+    auto2.nivelGasolina();
+ 
+
+    auto3.informacionVehiculo();
+    auto3.revisionTecnicoMecanica();
+    auto3.nivelGasolina();
+
+ console.log();
+ console.log(`Autos y Sedan`)
+ console.log();
+
+ console.log();
+ console.log(`Instructor`)
+ console.log();
+    
+    function Instructor (nombre,linea,jornada) {
+        this.nombre = nombre;
+        this.linea = linea;
+        this.jornada = jornada;
+      }
+  
+  const instructorPrototype = {
+    informacionInstructor() { console.log("Información del instructor:");
+      console.log("Nombre: " + this.nombre);
+      console.log("Línea: " + this.linea);
+      console.log("Jornada: " + this.jornada);
+      },
+
+      programaFormacion() {
+        if (this.linea === "Software") {
+          return "Programa: Análisis y desarrollo de software";
+        } else if (this.linea === "Hardware") {
+          return "Programa: Administración de redes";
+        } else {
+          return "No hay registro calificado para esta línea tecnológica";
+        }
+      },
+
+    } 
+
+    let instructor1 = new Instructor("Juan", "Software", "Mañana");
+      console.log({instructor1});
+
+    let instructor2 = new Instructor("María", "Hardware", "Tarde");
+      console.log({instructor2});
+
+    let instructor3 = new Instructor("Andrea", "Administraciona", "Mixta");
+      console.log({instructor3});
+
+
+
+ Object.assign(Instructor.prototype, instructorPrototype);
+
+ console.log();
+ console.log(`Instructor Planta`)
+ console.log();
+
+ function InstructorPlanta(nombre,linea,jornada,fechaVinculacion){
+      this.super = Instructor;
+      this.super(nombre,linea,jornada);
+      this.fechaVinculacion = fechaVinculacion;
+    }
+
+    InstructorPlanta.prototype = new Instructor();
+    InstructorPlanta.prototype.constructor = Instructor;
+
+    InstructorPlanta.prototype.informacionInstructor = function(){
+      console.log(`La vinculacion del instructor fue el ` + (this.fechaVinculacion));
+    };
+
+    InstructorPlanta.prototype.tiempoVinculacion = function(){
+        let fechaActual = new Date();
+        let fechaVinculacion = new Date (this.fechaVinculacion);
+        let meses = (fechaActual.getFullYear() - fechaVinculacion.getFullYear()) * 12;
+        meses -= fechaVinculacion.getMonth();
+        meses += fechaActual.getMonth();
+
+       console.log("El tiempo que ha pasado desde la vinculación es de " + meses + " meses.");
+       return meses;
+    };
+
+    let instructorPlanta1 = new InstructorPlanta("Maria", "Hardware", "Mañana",'2022-03-27');  
+
+
+      instructor1.informacionInstructor();
+      instructor1.programaFormacion();
+
+      instructor2.informacionInstructor();
+      instructor2.programaFormacion();
+
+      instructor3.informacionInstructor();
+      instructor3.programaFormacion();
+    
+  
+    console.log({instructorPlanta1});
+
+
+    instructorPlanta1.informacionInstructor();
+    instructorPlanta1.tiempoVinculacion();
+
+
+  console.log();
+  console.log(`Restaurante`)
+  console.log();
+
+ 
+    function Restaurante(plato, cantidad, precio) {
+      this.plato = plato;
+      this.cantidad = cantidad;
+      this.precio = precio;
+    }
+
+    const restaurantePrototype = {
+
+    pedidoRestaurante () {
+      console.log("Se ha hecho un pedido en el restaurante");
+    },
+
+    valorPedido () {
+      return this.cantidad * this.precio;
+    },
+
+    descuentoPedido () {
+      if (this.cantidad > 2 && this.valorPedido() >= 50000) {
+        return this.valorPedido() * 0.1;
+      }
+      return 0;
+    }
+  }
+
+    let restaurante1 = new Restaurante("Pizza", 3, 50000);
+    console.log({restaurante1});
+    let restaurante2 = new Restaurante("Hamburguesa", 4, 10000);
+    console.log ({restaurante2});
+    let restaurante3 = new Restaurante("Pollo", 3, 40000);
+    console.log({restaurante3});
+
+    Object.assign(Restaurante.prototype, restaurantePrototype);
+
+    console.log();
+   console.log(`Restaurante domicilio`)
+   console.log();
+
+    function RestauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio) {
+      Restaurante.call(this, plato, cantidad, precio);
+      this.tiempoEntrega = tiempoEntrega;
+      this.valorDomicilio = valorDomicilio;
+    }
+
+    RestauranteDomicilio.prototype = new Restaurante();
+    RestauranteDomicilio.prototype.constructor = Restaurante;
+
+    RestauranteDomicilio.prototype.valorPedido = function() {
+      return this.cantidad * this.precio + this.valorDomicilio;
+    }
+
+    RestauranteDomicilio.prototype.informacionRestaurante = function() {
+      console.log("Restaurante a domicilio con tiempo de entrega de " + this.tiempoEntrega + " minutos");
+    }
+
+    let restauranteDomicilio = new RestauranteDomicilio("Plato 4", 5, 12000, 30, 5000);
+
+    restauranteDomicilio.pedidoRestaurante();
+    console.log("Valor del pedido: " + restauranteDomicilio.valorPedido());
+    console.log("Descuento aplicado: " + restauranteDomicilio.descuentoPedido());
+    restauranteDomicilio.informacionRestaurante();
+
+
+
+    restaurante1.pedidoRestaurante();
+    console.log("Valor del pedido: " + restaurante1.valorPedido());
+    console.log("Descuento aplicado: " + restaurante1.descuentoPedido());
+
+    restaurante2.pedidoRestaurante();
+    console.log("Valor del pedido: " + restaurante2.valorPedido());
+    console.log("Descuento aplicado: " + restaurante2.descuentoPedido());
+
+    restaurante3.pedidoRestaurante();
+    console.log("Valor del pedido: " + restaurante3.valorPedido());
+    console.log("Descuento aplicado: " + restaurante3.descuentoPedido());
+
+  
+    
+
+        
+
+  
+  
+
+
+
+
+    
+  </script>
+</body>
+</html>
